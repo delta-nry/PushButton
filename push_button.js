@@ -16,13 +16,21 @@
 
 'use strict';
 
-function createButton(canvas) {
+// CanvasRenderingContext2D -> Number -> Number -> Number -> void
+//
+// canvas:  a CanvasRenderingContext2D object
+// r:       red value of button
+// g:       green value of button
+// b:       blue value of button
+function createButton(canvas, r, g, b) {
   // check if canvas.getContext is successful
-  if (canvas !== undefined && canvas.getContext) {
+  if (canvas !== undefined && r !== undefined && g !== undefined
+                           && b !== undefined && canvas.getContext) {
     // draw button on canvas
     var button = canvas.getContext('2d');
     button.beginPath();
-    button.fillStyle = 'rgb(200, 0, 0)';
+    button.fillStyle = 'rgb(' + r.toString() + ', ' + g.toString() + ', '
+                                                    + b.toString() + ')';
     button.arc(40, 35, 33, 0, Math.PI*2);
     button.moveTo(0, 0);
     button.fill();
@@ -40,36 +48,40 @@ function createButton(canvas) {
   }
 }
 
+// CanvasRenderingContext2D -> String -> void
+//
+// canvas:  a CanvasRenderingContext2D object
+// status:  determine how to update button view state ['up', 'down']
 function updateButton(canvas, status) {
   if (canvas !== undefined && status !== undefined) {
-    if (status === 'down') {
-      // TODO: change color
+    if (status === 'down') {      
+      var button = canvas.getContext('2d');
+      createButton(canvas, 150, 0, 0);
     } else if (status === 'up') {
-      // TODO: change color
+      var button = canvas.getContext('2d');
+      createButton(canvas, 200, 0, 0);
     }
   }
 }
 
-
+// void
 function main() {
   // get rendering context and its associated functions
-  var psCanvas = document.getElementById('push_button_canvas');
+  var pushButtonCanvas = document.getElementById('push_button_canvas');
   // create push button
-  createButton(psCanvas);
+  createButton(pushButtonCanvas, 200, 0, 0);
   
   // add mouse/touch interactivity
-  psCanvas.addEventListener("mousedown", function(event) {
+  pushButtonCanvas.addEventListener("mousedown", function(event) {
     if (event.region) {
-      console.log('button down');
-      updateButton(psCanvas, 'down');
+      updateButton(pushButtonCanvas, 'down');
     }
   });
   
   // add mouse/touch interactivity
-  psCanvas.addEventListener("mouseup", function(event) {
+  pushButtonCanvas.addEventListener("mouseup", function(event) {
     if (event.region) {
-      console.log('button up');
-      updateButton(psCanvas, 'up');
+      updateButton(pushButtonCanvas, 'up');
     }
   });
 }
