@@ -14,7 +14,6 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-'use strict';
 
 // CanvasRenderingContext2D -> Number -> Number -> Number -> void
 //
@@ -23,14 +22,15 @@
 // g:       green value of button
 // b:       blue value of button
 function createButton(canvas, r, g, b) {
+  'use strict';
   // check if canvas.getContext is successful
-  if (canvas !== undefined && r !== undefined && g !== undefined
-                           && b !== undefined && canvas.getContext) {
+  if (canvas !== undefined && r !== undefined && g !== undefined &&
+                              b !== undefined && canvas.getContext) {
     // draw button on canvas
     var button = canvas.getContext('2d');
     button.beginPath();
-    button.fillStyle = 'rgb(' + r.toString() + ', ' + g.toString() + ', '
-                                                    + b.toString() + ')';
+    button.fillStyle = 'rgb(' + r.toString() + ', ' + g.toString() + ', ' +
+                                                      b.toString() + ')';
     button.arc(40, 35, 33, 0, Math.PI*2);
     button.moveTo(0, 0);
     button.fill();
@@ -48,24 +48,29 @@ function createButton(canvas, r, g, b) {
   }
 }
 
+
 // CanvasRenderingContext2D -> String -> void
 //
 // canvas:  a CanvasRenderingContext2D object
 // status:  determine how to update button view state ['up', 'down']
 function updateButton(canvas, status) {
+  'use strict';
   if (canvas !== undefined && status !== undefined) {
+    var button = canvas.getContext('2d');
     if (status === 'down') {      
-      var button = canvas.getContext('2d');
+      button = canvas.getContext('2d');
       createButton(canvas, 150, 0, 0);
     } else if (status === 'up') {
-      var button = canvas.getContext('2d');
+      button = canvas.getContext('2d');
       createButton(canvas, 200, 0, 0);
     }
   }
 }
 
+
 // void
 function main() {
+  'use strict';
   // get rendering context and its associated functions
   var pushButtonCanvas = document.getElementById('push_button_canvas');
   // create push button
